@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlitchTech | Soporte Técnico Estudiantil - CETis 18</title>
+    <style>
+        /* ==========================================
+           1. CONFIGURACIÓN Y PALETA PREMIUM (DARK TECH)
+           ========================================== */
+        :root {
+            --bg-principal: #0b111e;
+            --bg-superficie: #131c2e;
+            --bg-tarjeta: rgba(255, 255, 255, 0.03);
+            --borde-glass: rgba(255, 255, 255, 0.08);
+            
+            --azul-electrico: #00d2ff;
+            --azul-profundo: #0066ff;
+            --rosita-neon: #ff4d94;
+            --blanco: #ffffff;
+            --texto-secundario: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-principal);
+            color: var(--blanco);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ==========================================
+           2. NAVEGACIÓN PREMIUM (Efecto Glassmorphism)
+           ========================================== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 6%;
+            background: rgba(11, 17, 30, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--borde-glass);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-pink {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--rosita-neon), #ff0066);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 24px;
+            box-shadow: 0 0 20px rgba(255, 77, 148, 0.4);
+        }
+
+        .logo-text {
+            line-height: 1.2;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-desktop {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu-desktop a {
+            text-decoration: none;
+            color: var(--texto-secundario);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-desktop a:hover {
+            color: var(--azul-electrico);
+            transform: translateY(-1px);
+        }
+
+        /* Menú Hamburguesa */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            background-color: var(--blanco);
+            transition: 0.3s;
+        }
+
+        /* Sidebar Desplegable */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100vh;
+            background: rgba(19, 28, 46, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding-top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid var(--borde-glass);
+            z-index: 999;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar a {
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 12px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--azul-electrico);
+        }
+
+        /* ==========================================
+           3. DISEÑO DE SECCIONES Y MAQUETACIÓN
+           ========================================== */
+        section {
+            padding: 90px 8%;
+        }
+
+        .bg-superficie-color {
+            background-color: var(--bg-superficie);
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, var(--blanco), var(--texto-secundario));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .texto-bloque p {
+            color: var(--texto-secundario);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .img-container-premium {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--borde-glass);
+        }
+
+        .img-container-premium::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(11,17,30,0.4), transparent);
+        }
+
+        .img-responsive {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .img-container-premium:hover .img-responsive {
+            transform: scale(1.04);
+        }
+
+        /* ==========================================
+           4. SECCIONES ESPECÍFICAS
+           ========================================== */
+        
+        /* 1. Inicio / Hero */
+        .hero {
+            height: 95vh;
+            background: linear-gradient(135deg, rgba(11, 17, 30, 0.95) 30%, rgba(0, 102, 255, 0.15)),
+                        url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            max-width: 850px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 60%, var(--azul-electrico));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--texto-secundario);
+            max-width: 750px;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-premium {
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-azul {
+            background: linear-gradient(135deg, var(--azul-profundo), var(--azul-electrico));
+            color: var(--blanco);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+        }
+
+        .btn-azul:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(0, 102, 255, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--blanco);
+            border-color: var(--borde-glass);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--azul-electrico);
+        }
+
+        /* Listas con checkmark */
+        .list-check {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .list-check li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            color: var(--texto-secundario);
+            font-size: 1rem;
+        }
+
+        .list-check li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--rosita-neon);
+            font-weight: bold;
+        }
+
+        /* Caja de Situación/Objetivos */
+        .info-box-panel {
+            background: var(--bg-tarjeta);
+            border: 1px solid var(--borde-glass);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        .info-box-panel h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--azul-electrico);
+        }
+
+        /* Nuestro Equipo */
+        .equipo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .miembro-card {
+            text-align: center;
+            background: var(--bg-tarjeta);
+            padding: 25px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--borde-glass);
+            transition: all 0.4s ease;
+        }
+
+        .miembro-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--rosita-neon);
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .miembro-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .miembro-card span {
+            font-size: 0.85rem;
+            color: var(--texto-secundario);
+            display: block;
+            line-height: 1.4;
+        }
+
+        /* Grid de Soluciones e Incidencias */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .card-item {
+            background: var(--bg-tarjeta);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--borde-glass);
+            transition: all 0.3s ease;
+        }
+
+        .card-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--azul-electrico);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .card-item h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            color: var(--blanco);
+        }
+
+        .card-item p {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+        }
+
+        /* Sección de Registro / Formulario */
+        .formulario-box {
+            background: var(--bg-tarjeta);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--borde-glass);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--texto-secundario);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--borde-glass);
+            background: rgba(11, 17, 30, 0.6);
+            color: var(--blanco);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--azul-electrico);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+        }
+
+        .btn-enviar {
+            background: linear-gradient(135deg, var(--rosita-neon), #ff0066);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-enviar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 77, 148, 0.4);
+        }
+
+        /* Footer Escolar */
+        footer {
+            background-color: #070b14;
+            color: var(--texto-secundario);
+            padding: 40px 6%;
+            border-top: 1px solid var(--borde-glass);
+            font-size: 0.9rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            color: var(--blanco);
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ==========================================
+           5. RESPONSIVO DE ALTA FIDELIDAD
+           ========================================== */
+        @media (max-width: 992px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero h1 { font-size: 2.8rem; }
+            section { padding: 60px 6%; }
+        }
+
+        @media (max-width: 768px) {
+            .menu-desktop { display: none; }
+            .menu-toggle { display: flex; }
+            .hero h1 { font-size: 2.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-container">
+            <div class="logo-pink">G</div>
+            <div class="logo-text">
+                GlitchTech<br><span style="color: var(--azul-electrico); font-size:11px;">Soporte Escolar CETis 18</span>
+            </div>
+        </div>
+        <div class="menu-desktop">
+            <a href="#inicio">1. Inicio</a>
+            <a href="#quienes-somos">2. ¿Quiénes Somos?</a>
+            <a href="#prevencion">3. Prevención de Fallas</a>
+            <a href="#fallas-frecuentes">4. Fallas Frecuentes</a>
+            <a href="#atencion-usuarios">5. Atención a Usuarios</a>
+            <a href="#registro-incidencias">6. Registro</a>
+        </div>
+        <button class="menu-toggle" id="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <div class="sidebar" id="sidebar-menu">
+        <a href="#inicio">1. Inicio</a>
+        <a href="#quienes-somos">2. ¿Quiénes Somos?</a>
+        <a href="#prevencion">3. Prevención de Fallas</a>
+        <a href="#fallas-frecuentes">4. Fallas Frecuentes</a>
+        <a href="#atencion-usuarios">5. Atención a Usuarios</a>
+        <a href="#registro-incidencias">6. Registro de Incidencias</a>
+    </div>
+
+    <header id="inicio" class="hero">
+        <h1>GlitchTech: Portal de Soporte Estudiantil Informativo</h1>
+        <p><strong>Descripción General:</strong> La página consiste en el diseño e implementación de una Página Web Informativa de Soporte Técnico Escolar, cuyo propósito es brindar orientación a la comunidad educativa y externas mediante la difusión de recomendaciones preventivas, la atención básica a usuarios y el registro y seguimiento de incidencias tecnológicas.</p>
+        <p><strong>Objetivo General:</strong> Diseñar una página web informativa que permita orientar a la comunidad escolar sobre prevención de fallas, brindar atención básica a usuarios u organizar el registro y seguimiento de incidencias tecnológicas.</p>
+        <div class="hero-buttons">
+            <button onclick="abrirGlitchTech()" class="btn-premium btn-azul">Preguntar al Bot GlitchTech</button>
+            <a href="#prevencion" class="btn-premium btn-outline">Medidas Preventivas</a>
+        </div>
+    </header>
+
+    <section id="quienes-somos" class="bg-superficie-color">
+        <div class="grid-2">
+            <div class="texto-bloque">
+                <h2 class="section-title">2. ¿Quiénes Somos?</h2>
+                <p><strong>Nombre del Equipo:</strong> GlitchTech</p>
+                <p><strong>Grupo:</strong> 4° Semestre</p>
+                <p><strong>Especialidad:</strong> Soporte y Mantenimiento de Equipos de Cómputo</p>
+                <p><strong>Propósito del Proyecto:</strong> Brindar orientación tecnológica integral a la comunidad escolar del CETis No. 18 mediante recursos digitales preventivos, atención básica estructurada y un registro óptimo de incidencias.</p>
+            </div>
+            <div class="info-box-panel">
+                <h3>Situación a Resolver</h3>
+                <p>En las instituciones educativas es común encontrar problemáticas que merman la eficiencia digital. Nuestro portal atiende directamente:</p>
+                <ul class="list-check">
+                    <li>Fallas recurrentes en equipos de cómputo y dispositivos móviles.</li>
+                    <li>Desconocimiento generalizado sobre medidas de prevención básicas.</li>
+                    <li>Dificultades y retrasos para reportar incidentes cotidianos.</li>
+                    <li>Falta de seguimiento claro a los problemas previamente reportados.</li>
+                    <li>Escasa difusión de recomendaciones tecnológicas y canales de atención.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title" style="text-align: center; margin-top: 60px; color: var(--rosita-neon);">Nuestro Equipo</h2>
+        <p style="text-align: center; color: var(--texto-secundario); max-width: 800px; margin: 0 auto 40px;">
+            En Soporte Técnico Estudiantil, nos enorgullece contar con un equipo de jóvenes apasionados por la tecnología y capacitados en brindar soluciones técnicas a medida.
+        </p>
+
+        <div class="equipo-grid">
+            <div class="miembro-card">
+                <div class="avatar-container">
+                    <img src="https://i.postimg.cc/MG4C3xFS/jhoana.jpg" alt="Jhoana Olivas" class="avatar-img">
+                </div>
+                <h3>JHOANA OLIVAS</h3>
+                <span style="color: var(--azul-electrico); font-weight: bold; margin-bottom: 5px;">Coordinadora</span>
+                <span>Liderazgo de células de soporte y gestión de recursos web.</span>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-container">
+                    <img src="https://i.postimg.cc/Mp3NXqxy/danae.jpg" alt="Danae Lugo" class="avatar-img">
+                </div>
+                <h3>DANAE LUGO</h3>
+                <span style="color: var(--azul-electrico); font-weight: bold; margin-bottom: 5px;">Técnico de Instalación</span>
+                <span>Especialista en Equipos de Cómputo y despliegue de sistemas.</span>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-container">
+                    <img src="https://i.postimg.cc/KzBH9TL2/mariagonzalez.jpg" alt="Maria Cielo" class="avatar-img">
+                </div>
+                <h3>MARIA CIELO</h3>
+                <span style="color: var(--azul-electrico); font-weight: bold; margin-bottom: 5px;">Responsable de Documentación</span>
+                <span>Control de calidad, bitácoras y gestión de bases de datos.</span>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-container">
+                    <img src="https://i.postimg.cc/8zcX29W5/mariafelix.jpg" alt="Maria Felix" class="avatar-img">
+                </div>
+                <h3>MARIA FELIX</h3>
+                <span style="color: var(--azul-electrico); font-weight: bold; margin-bottom: 5px;">Soporte Técnico</span>
+                <span>Atención directa al usuario y resolución de dudas tecnológicas.</span>
+            </div>
+
+            <div class="miembro-card">
+                <div class="avatar-container">
+                    <img src="https://i.postimg.cc/jS13tcQZ/angel.jpg" alt="Angel Navarro" class="avatar-img">
+                </div>
+                <h3>ANGEL NAVARRO</h3>
+                <span style="color: var(--azul-electrico); font-weight: bold; margin-bottom: 5px;">Técnico de Dispositivos Móviles</span>
+                <span>Especialista en diagnóstico y soporte (Android / iOS).</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="objetivos-especificos">
+        <div class="grid-2" style="direction: rtl;">
+            <div class="texto-bloque" style="direction: ltr;">
+                <h2 class="section-title">Objetivos Específicos</h2>
+                <p>Para consolidar el impacto de nuestra plataforma informativa, nos enfocamos firmemente en cumplir las siguientes metas de soporte:</p>
+                <ul class="list-check">
+                    <li>Diseñar una página web completamente funcional, moderna y organizada.</li>
+                    <li>Difundir recomendaciones preventivas mediante recursos y pautas digitales estructuradas.</li>
+                    <li>Crear canales de atención directa y eficientes para todos los usuarios escolares.</li>
+                    <li>Implementar mecanismos claros para el registro transparente de incidencias.</li>
+                    <li>Utilizar hojas de cálculo internas para el seguimiento estricto de casos.</li>
+                    <li>Promover activamente el uso responsable y óptimo de la tecnología institucional.</li>
+                </ul>
+            </div>
+            <div class="img-container-premium" style="direction: ltr;">
+                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Estudiantes trabajando en soporte TI" class="img-responsive">
+            </div>
+        </div>
+    </section>
+
+    <section id="prevencion" class="bg-superficie-color">
+        <h2 class="section-title" style="text-align: center;">3. Prevención de Fallas</h2>
+        <p style="text-align: center; color: var(--texto-secundario); max-width: 700px; margin: 0 auto 30px;">
+            La mejor reparación es la que se evita. Consulta nuestras guías clave para mantener tus dispositivos escolares en perfecto estado operacional.
+        </p>
+        <div class="cards-grid">
+            <div class="card-item">
+                <h3>Mantenimiento Preventivo</h3>
+                <p>Limpia el polvo de los componentes físicos, evita obstruir las rejillas de ventilación y programa limpiezas internas de archivos temporales cada mes.</p>
+            </div>
+            <div class="card-item">
+                <h3>Security Digital y Contraseñas</h3>
+                <p>Genera contraseñas robustas combinando mayúsculas, números y símbolos. Jamás compartas tus credenciales de acceso institucional.</p>
+            </div>
+            <div class="card-item">
+                <h3>Actualizaciones Obligatorias</h3>
+                <p>Mantén el sistema operativo y el software antivirus actualizados a la última versión para protegerte de fallas críticas de seguridad.</p>
+            </div>
+            <div class="card-item">
+                <h3>Uso Responsable y Protección</h3>
+                <p>Manipula tus dispositivos con cuidado, evita consuming alimentos o líquidos cerca de ellos y respalda tu información importante de manera periódica en la nube.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fallas-frecuentes">
+        <h2 class="section-title" style="text-align: center;">4. Fallas Frecuentes (FAQ)</h2>
+        <p style="text-align: center; color: var(--texto-secundario); max-width: 700px; margin: 0 auto 40px;">
+            Respuestas directas y soluciones básicas e inmediatas para los inconvenientes tecnológicos más comunes en el plantel.
+        </p>
+        <div class="cards-grid">
+            <div class="card-item">
+                <h3>¿Equipo sumamente lento?</h3>
+                <p><strong>Solución:</strong> Cierra las aplicaciones en segundo plano, desinstala programas innecesarios que inicien con el sistema y elimina la caché de tu navegador.</p>
+            </div>
+            <div class="card-item">
+                <h3>¿Problemas de conexión a internet?</h3>
+                <p><strong>Solución:</strong> Verifica que el adaptador Wi-Fi esté encendido, olvida la red escolar y vuelve a conectarte, o comprueba si la IP está asignada automáticamente.</p>
+            </div>
+            <div class="card-item">
+                <h3>¿Aplicaciones que no abren/funcionan?</h3>
+                <p><strong>Solución:</strong> Fuerza el cierre del proceso desde el Administrador de Tareas, verifica si la aplicación requiere actualización o intenta reinstalarla.</p>
+            </div>
+            <div class="card-item">
+                <h3>¿Falta de espacio de almacenamiento?</h3>
+                <p><strong>Solución:</strong> Utiliza la herramienta 'Liberador de espacio en disco', vacía la papelera de reciclaje y transfiere tus proyectos pesados a Google Drive.</p>
+            </div>
+            <div class="card-item">
+                <h3>¿Olvido o bloqueo de contraseñas?</h3>
+                <p><strong>Solución:</strong> Recurre a la opción "Olvidé mi contraseña" en el portal institucional o acude directamente al módulo físico de GlitchTech para validación de identidad.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="atencion-usuarios" class="bg-superficie-color">
+        <div class="grid-2">
+            <div class="texto-bloque">
+                <h2 class="section-title">5. Atención a Usuarios</h2>
+                <p><strong>Cómo solicitar apoyo:</strong> Cualquier alumno, docente o administrativo puede abrir un ticket técnico llenando el formulario digital oficial de la sección "Registro de Incidencias".</p>
+                <p><strong>Horarios de Atención:</strong> Lunes a Viernes de 8:00 AM a 2:00 PM.</p>
+                <p><strong>Medios de Contacto y Redes:</strong></p>
+                <ul class="list-check" style="margin-top: 10px;">
+                    <li>Correo Electrónico: <a href="mailto:glitchtech0005@gmail.com" style="color:var(--azul-electrico); text-decoration:none;">glitchtech0005@gmail.com</a></li>
+                    <li>Página oficial de Facebook: <a href="#" style="color:var(--azul-electrico); text-decoration:none;">GlitchTech CETis 18</a></li>
+                </ul>
+                <br>
+                <p><strong>Procedimiento de Atención Obligatorio:</strong></p>
+                <ol style="margin-left: 20px; color: var(--texto-secundario); display: flex; flex-direction: column; gap: 8px; list-style-type: none;">
+                    <li>1. El usuario registra formalmente la falla en el formulario web.</li>
+                    <li>2. El equipo técnico recibe la alerta e ingresa la incidencia a nuestra base de datos.</li>
+                    <li>3. Se asigna un técnico de GlitchTech para realizar un diagnóstico remoto o presencial.</li>
+                    <li>4. Se ejecutan las maniobras correctivas y se actualiza la hoja de cálculo de seguimiento.</li>
+                    <li>5. Se realiza el cierre del caso previa validación y conformidad del usuario.</li>
+                </ol>
+            </div>
+            <div class="img-container-premium">
+                <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=600&q=80" alt="Soporte y atención al usuario escolar" class="img-responsive">
+            </div>
+        </div>
+    </section>
+
+    <section id="registro-incidencias">
+        <div class="grid-2">
+            <div class="formulario-box">
+                <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 10px;">6. Registro de Incidencias</h2>
+                <p style="color: var(--texto-secundario); margin-bottom: 25px; font-size: 0.9rem;">Formulario oficial de reporte técnico. La información recopilada será volcada de inmediato en nuestras hojas de cálculo escolares para su solución cronológica.</p>
+                
+                <form action="https://formspree.io/f/xojbzlgk" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre Completo *</label>
+                        <input type="text" id="nombre" name="nombre_completo" required placeholder="Ej. Juan Pérez López">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="grupo-area">Grupo o Área Solicitante *</label>
+                        <select id="grupo-area" name="grupo_o_area" required>
+                            <option value="" disabled selected hidden>Selecciona tu tipo de usuario...</option>
+                            <option value="Estudiante">Estudiante</option>
+                            <option value="Docente">Docente</option>
+                            <option value="Administrativo">Administrativo</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="problema">Problema Detectado *</label>
+                        <select id="problema" name="problema_detectado" required>
+                            <option value="" disabled selected hidden>Selecciona una opción...</option>
+                            <option value="Equipo Lento">Equipo excesivamente lento</option>
+                            <option value="Problemas de Conexion">Problemas de conexión a Internet</option>
+                            <option value="Aplicaciones">Aplicaciones / Software no funcionan</option>
+                            <option value="Almacenamiento">Problemas de almacenamiento lleno</option>
+                            <option value="Contrasena">Olvido de contraseñas de acceso</option>
+                            <option value="Otro">Otro problema (Especificar abajo)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="evidencias">Descripción y Evidencias del Problema *</label>
+                        <textarea id="evidencias" name="evidencias_y_detalles" rows="4" required placeholder="Describe detalladamente qué sucede..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contacto-medio">Medio de Contacto Preferido *</label>
+                        <input type="text" id="contacto-medio" name="medio_de_contacto" required placeholder="Ej. WhatsApp: 686XXXXXXX o Correo escolar">
+                    </div>
+                    
+                    <button type="submit" class="btn-enviar">Enviar Reporte de Incidencia</button>
+                </form>
+            </div>
+
+            <div class="texto-bloque">
+                <h2 class="section-title">Canales de Monitoreo</h2>
+                <p>Cumpliendo estrictamente con los lineamientos del módulo de soporte del plantel, todas tus solicitudes generan una entrada automatizada. Los administradores utilizamos metodologías ágiles de TI para asegurar que ninguna incidencia quede en el olvido.</p>
+                <div class="info-box-panel" style="margin-top: 20px;">
+                    <h4 style="color: var(--blanco); margin-bottom: 10px;">Evidencias y Seguimiento</h4>
+                    <p style="font-size: 0.95rem;">Nuestras bitácoras y hojas de cálculo de seguimiento están respaldadas en la nube de la especialidad. Si requieres estatus de tu caso, provee tu nombre o grupo asignado al acudir a nuestro taller escolar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Institución Educativa</h4>
+                <p>Centro de Estudios Tecnológicos Industrial y de Servicios No. 18</p>
+                <p>Mexicali, Baja California, boulevard lázaro cárdenaz 2801, fraccionamiento virreyes.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Proyecto final del 4to semestre</h4>
+                <p><strong>Especialidad:</strong> Soporte y Mantenimiento de Equipos de Cómputo.</p>
+                <p><strong>Módulo:</strong> Brinda Soporte Técnico,4A-TV, 4to semestre.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Evaluación Docente</h4>
+                <p><strong>Docente:</strong> Claudia Jesús Chávez Meza</p>
+                <p>Proyecto Final - Cuarto Semestre (2026)</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 GlitchTech. Todos los derechos reservados. Desarrollado con fines educativos y de soporte comunitario escolar.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/06/02/20/20260602205240-F8OUNKEU.js" defer></script>
+
+    <script>
+        function abrirGlitchTech() {
+            if (window.botpress) {
+                window.botpress.open();
+            } else {
+                console.log("Iniciando interfaz webchat...");
+            }
+        }
+
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar-menu');
+        const sidebarLinks = document.querySelectorAll('#sidebar-menu a');
+
+        // Manejador del Menú Hamburguesa Móvil
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            
+            // Animación estética de las barras del botón hamburguesa
+            const spans = menuBtn.querySelectorAll('span');
+            if(sidebar.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Cierre automático del sidebar al dar clic en alguna sección
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.remove();
+                sidebar.classList.remove('active');
+                const spans = menuBtn.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
